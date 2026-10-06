@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="silhueta desfeita em estatica">
+  <defs>
+    <!-- linhas de varredura que formam a figura -->
+    <pattern id="lines" width="8" height="9" patternUnits="userSpaceOnUse">
+      <rect width="8" height="4" fill="#d6d2c8"/>
+      <rect y="4" width="8" height="1" fill="#8d8a84"/>
+    </pattern>
+
+    <!-- deslocamento: a figura "derrete" na estatica -->
+    <filter id="disp" x="-25%" y="-15%" width="150%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.06" numOctaves="3" seed="7" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="34" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <!-- ruido de fundo -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="3"/>
+    </filter>
+
+    <!-- a figura some nas bordas -->
+    <radialGradient id="fade" cx="50%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="62%" stop-color="#fff" stop-opacity=".75"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="2" fill="#000" opacity=".45"/>
+    </pattern>
+
+    <mask id="vig">
+      <rect width="800" height="1000" fill="url(#fade)"/>
+    </mask>
+  </defs>
+
+  <rect width="800" height="1000" fill="#08080a"/>
+  <rect width="800" height="1000" filter="url(#noise)" opacity=".16"/>
+
+  <!-- silhueta: cabeca, pescoco e ombros -->
+  <g mask="url(#vig)" filter="url(#disp)" opacity=".92">
+    <ellipse cx="400" cy="330" rx="168" ry="212" fill="url(#lines)"/>
+    <path d="M318 505 h164 v78 l138 62 c62 30 96 84 104 156 l16 139 H182 l16-139 c8-72 42-126 104-156 l16-62 z" fill="url(#lines)"/>
+    <!-- vazios onde estariam os olhos -->
+    <ellipse cx="337" cy="318" rx="46" ry="26" fill="#08080a" opacity=".9"/>
+    <ellipse cx="463" cy="318" rx="46" ry="26" fill="#08080a" opacity=".9"/>
+    <!-- boca ausente -->
+    <rect x="352" y="418" width="96" height="9" fill="#08080a" opacity=".8"/>
+  </g>
+
+  <!-- barras de glitch -->
+  <g opacity=".5">
+    <rect x="0" y="262" width="800" height="7" fill="#3fa9c9" opacity=".35"/>
+    <rect x="0" y="269" width="800" height="4" fill="#c4342a" opacity=".3"/>
+    <rect x="0" y="596" width="800" height="11" fill="#08080a"/>
+    <rect x="0" y="742" width="800" height="5" fill="#d99a2b" opacity=".28"/>
+  </g>
+
+  <!-- varredura fina sobre tudo -->
+  <rect width="800" height="1000" fill="url(#scan)" opacity=".5"/>
+</svg>
